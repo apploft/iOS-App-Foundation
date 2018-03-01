@@ -45,3 +45,23 @@ public extension UIColor {
     }
     
 }
+
+public extension UIColor {
+    
+    convenience init(hex: Int, alpha: CGFloat = 1.0) {
+        let red = CGFloat((hex & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((hex & 0xFF00) >> 8) / 255.0
+        let blue = CGFloat((hex & 0xFF)) / 255.0
+        
+        self.init(red:red, green:green, blue:blue, alpha:alpha)
+    }
+    
+    var hexString: String {
+        let components = self.cgColor.components
+        let red = Float((components?[0])!)
+        let green = Float((components?[1])!)
+        let blue = Float((components?[2])!)
+        
+        return String(format: "#%02lX%02lX%02lX", lroundf(red * 255), lroundf(green * 255), lroundf(blue * 255))
+    }
+}
